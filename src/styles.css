@@ -1,0 +1,634 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ApexSales design system — Frosted Bento direction.
+ * Light, airy paper surfaces with a vivid green accent.
+ * Plus Jakarta Sans (display) + Poppins (body).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ApexSales brand tokens */
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-moss: var(--moss);
+  --color-forest: var(--forest);
+  --color-vivid: var(--vivid);
+
+  /* Colourful data accents (charts, badges, pills) */
+  --color-amber: var(--amber);
+  --color-sky: var(--sky);
+  --color-violet: var(--violet);
+  --color-rose: var(--rose);
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.972 0.013 147);
+  --foreground: oklch(0.257 0.043 155);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.257 0.043 155);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.257 0.043 155);
+  --primary: oklch(0.257 0.043 155);
+  --primary-foreground: oklch(0.972 0.013 147);
+  --secondary: oklch(0.944 0.026 149);
+  --secondary-foreground: oklch(0.257 0.043 155);
+  --muted: oklch(0.944 0.026 149);
+  --muted-foreground: oklch(0.533 0.058 146);
+  --accent: oklch(0.772 0.203 150);
+  --accent-foreground: oklch(0.257 0.043 155);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.257 0.043 155 / 8%);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.772 0.203 150);
+
+  --paper: oklch(0.972 0.013 147);
+  --mist: oklch(0.944 0.026 149);
+  --moss: oklch(0.533 0.058 146);
+  --forest: oklch(0.257 0.043 155);
+  --vivid: oklch(0.772 0.203 150);
+  --amber: oklch(0.769 0.164 70);
+  --sky: oklch(0.696 0.145 235);
+  --violet: oklch(0.606 0.21 293);
+  --rose: oklch(0.645 0.2 16);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* KPI dashboard — ring sweeps from empty to its target value */
+@keyframes ring-sweep {
+  from {
+    stroke-dashoffset: 88;
+  }
+  to {
+    stroke-dashoffset: var(--ring-target, 88);
+  }
+}
+
+/* KPI dashboard — pill / badge pops in */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-18px, 14px) scale(1.08);
+  }
+}
+
+@keyframes drift2 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(16px, -12px) scale(1.05);
+  }
+}
+
+/* Organic mist orbs — slow, breathing background layers */
+@keyframes mist-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(34px, -26px) scale(1.12);
+  }
+  66% {
+    transform: translate(-22px, 18px) scale(0.94);
+  }
+}
+
+@keyframes mist-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-38px, 24px) scale(1.15);
+  }
+  70% {
+    transform: translate(20px, -30px) scale(0.92);
+  }
+}
+
+@keyframes mist-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(26px, 22px) scale(1.1);
+    opacity: 0.85;
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility card-float {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility card-float-2 {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.12s both;
+}
+
+@utility glow-a {
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+@utility glow-b {
+  animation: drift2 19s ease-in-out infinite alternate;
+}
+
+@utility orb-a {
+  animation: mist-drift-a 24s ease-in-out infinite;
+}
+
+@utility orb-b {
+  animation: mist-drift-b 31s ease-in-out infinite;
+}
+
+@utility orb-c {
+  animation: mist-drift-c 38s ease-in-out infinite;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(
+    oklch(0.257 0.043 155 / 7%) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    black 30%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    black 30%,
+    transparent 75%
+  );
+}
+
+@utility chip-float {
+  animation:
+    rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.12s both,
+    floaty 5.5s ease-in-out 1.4s infinite;
+}
+
+@utility marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+@utility marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  &.reveal-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility hover-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px -18px oklch(0.257 0.043 155 / 28%);
+  }
+}
+
+/* KPI card: soft light sweep across the card on hover */
+@utility kpi-shine {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 42%, oklch(0.988 0.02 150 / 0.55) 50%, transparent 58%);
+    transform: translateX(-130%);
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    transform: translateX(130%);
+  }
+}
+
+/* Icon inside a KPI card tilts and lifts on card hover */
+@utility kpi-icon {
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.35),
+    box-shadow 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.group:hover .kpi-icon {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+@utility btn-shine {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 42%, oklch(1 0 0 / 0.45) 50%, transparent 58%);
+    transform: translateX(-130%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    transform: translateX(130%);
+  }
+}
+
+@utility anim-rise {
+  animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@utility ring-draw {
+  animation: ring-sweep 1.3s cubic-bezier(0.3, 0.7, 0.2, 1) 0.45s both;
+}
+
+@utility pill-pop {
+  animation: pop-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) 0.85s both;
+}
+
+/* Solid SaaS card — white surface, soft real shadow (Zoho/HubSpot style) */
+@utility card-solid {
+  background-color: oklch(1 0 0);
+  border-radius: min(1.2vw, 18px);
+  box-shadow:
+    0 1px 2px oklch(0.257 0.043 155 / 6%),
+    0 12px 32px -16px oklch(0.257 0.043 155 / 14%);
+  border: 1px solid oklch(0.257 0.043 155 / 7%);
+}
+
+@utility card-solid-lg {
+  background-color: oklch(1 0 0);
+  border-radius: min(1.6vw, 24px);
+  box-shadow:
+    0 2px 4px oklch(0.257 0.043 155 / 5%),
+    0 32px 64px -32px oklch(0.257 0.043 155 / 22%);
+  border: 1px solid oklch(0.257 0.043 155 / 7%);
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: oklch(0.772 0.203 150 / 14%);
+  padding: 0.3rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: oklch(0.38 0.09 150);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .chip-float,
+  .orb-a,
+  .orb-b,
+  .orb-c,
+  .glow-a,
+  .glow-b,
+  .tour-bar,
+  .tour-pulse,
+  .tour-float,
+  .ring-draw,
+  .pill-pop {
+    animation: none;
+  }
+
+  .kpi-shine::after {
+    display: none;
+  }
+
+  .anim-bar,
+  .anim-path,
+  .anim-soft,
+  .anim-dot,
+  .anim-seg,
+  .anim-row,
+  .anim-fade,
+  .anim-pop {
+    transition: none;
+  }
+}
+
+/* Chat widget animations */
+@keyframes chat-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility chat-pop {
+  animation: chat-pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@utility chat-in {
+  animation: chat-in 0.18s ease-out;
+}
+
+@utility chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.772 0.203 150 / 60%) transparent;
+}
+
+/* Product tour animations */
+@keyframes tour-grow {
+  from {
+    transform: scaleY(0.05);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes tour-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.772 0.203 150 / 45%);
+  }
+  50% {
+    box-shadow: 0 0 0 9px oklch(0.772 0.203 150 / 0%);
+  }
+}
+
+@keyframes tour-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tour-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@utility tour-bar {
+  transform-origin: bottom;
+  animation: tour-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility tour-pulse {
+  animation: tour-soft 2.4s ease-out infinite;
+}
+
+@utility tour-in {
+  animation: tour-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@utility tour-float {
+  animation: tour-float 4.5s ease-in-out infinite;
+}
+
+/* ---------- Kinetic SaaS — scroll-gated chart & list motion (product page) ---------- */
+/* All of these animate once their parent Reveal gains .reveal-in */
+
+.anim-bar {
+  width: 0 !important;
+  transition: width 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--anim-delay, 0.35s);
+}
+.reveal-in .anim-bar {
+  width: var(--bar-w, 100%) !important;
+}
+
+.anim-path {
+  stroke-dasharray: var(--path-len, 1);
+  stroke-dashoffset: var(--path-len, 1);
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.3, 0.7, 0.2, 1) var(--anim-delay, 0.35s);
+}
+.reveal-in .anim-path {
+  stroke-dashoffset: 0;
+}
+
+.anim-soft {
+  opacity: 0;
+  transition: opacity 0.9s ease var(--anim-delay, 0.6s);
+}
+.reveal-in .anim-soft {
+  opacity: 1;
+}
+
+.anim-dot {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3) var(--anim-delay, 0.5s);
+}
+.reveal-in .anim-dot {
+  transform: scale(1);
+}
+
+.anim-seg {
+  stroke-dasharray: 0 400 !important;
+  transition:
+    stroke-dasharray 1s cubic-bezier(0.3, 0.7, 0.2, 1) var(--anim-delay, 0.4s),
+    stroke-dashoffset 1s cubic-bezier(0.3, 0.7, 0.2, 1) var(--anim-delay, 0.4s);
+}
+.reveal-in .anim-seg {
+  stroke-dasharray: var(--seg-a, 100) var(--seg-b, 300) !important;
+}
+
+.anim-row {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.5s ease var(--anim-delay, 0.3s),
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--anim-delay, 0.3s);
+}
+.reveal-in .anim-row {
+  opacity: 1;
+  transform: none;
+}
+
+.anim-fade {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.55s ease var(--anim-delay, 0.3s),
+    transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) var(--anim-delay, 0.3s);
+}
+.reveal-in .anim-fade {
+  opacity: 1;
+  transform: none;
+}
+
+.anim-pop {
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.4s ease var(--anim-delay, 0.7s),
+    transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) var(--anim-delay, 0.7s);
+}
+.reveal-in .anim-pop {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* ---------- Pricing — Growth card breathing glow ---------- */
+@keyframes plan-glow {
+  0%,
+  100% {
+    box-shadow: 0 24px 50px -22px rgba(43, 217, 110, 0.35);
+  }
+  50% {
+    box-shadow: 0 30px 66px -20px rgba(43, 217, 110, 0.55);
+  }
+}
+
+@utility plan-glow {
+  animation: plan-glow 3.6s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
